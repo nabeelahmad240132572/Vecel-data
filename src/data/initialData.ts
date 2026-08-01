@@ -385,7 +385,60 @@ export const ALL_SHEET_RECORDS: ExpenseRecord[] = [
   { id: "rec-715-13", date: "2026-07-15", vehicle: "CAG-3096", category: "Irregular Expense", additionalInfo: "Paint", amount: 3500, inventory: null, item: "Paint", value: 3500 },
   { id: "rec-715-14", date: "2026-07-15", vehicle: "CAC-7347", category: "Irregular Expense", additionalInfo: "Leather Shoe", amount: 9000, inventory: null, item: "Leather Shoe", value: 9000 },
   { id: "rec-715-15", date: "2026-07-15", vehicle: "CAC-7347", category: "Oil Change", additionalInfo: "carrociene Oil", amount: 2500, inventory: null, item: "carrociene Oil", value: 2500 },
-  { id: "rec-715-16", date: "2026-07-15", vehicle: "CAC-7347", category: "Regular Expense", additionalInfo: "Greese 6 Box", amount: 6000, inventory: null, item: "Greese 6 Box", value: 6000 }
+  { id: "rec-715-16", date: "2026-07-15", vehicle: "CAC-7347", category: "Regular Expense", additionalInfo: "Greese 6 Box", amount: 6000, inventory: null, item: "Greese 6 Box", value: 6000 },
+
+  // --- DATE 7/16/2026 ---
+  { id: "rec-716-1", date: "2026-07-16", vehicle: "LET-2019", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Engine Oil", amount: null, inventory: 4400, item: "Engine Oil", value: 4400 },
+  { id: "rec-716-2", date: "2026-07-16", vehicle: "LET-2019", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Oil Filter", amount: null, inventory: 600, item: "Oil Filter", value: 600 },
+  { id: "rec-716-3", date: "2026-07-16", vehicle: "LET-2019", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Lister", amount: null, inventory: 40, item: "Lister", value: 40 },
+  { id: "rec-716-4", date: "2026-07-16", vehicle: "LET-3431", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Hub Sell", amount: null, inventory: 300, item: "Hub Sell", value: 300 },
+  { id: "rec-716-5", date: "2026-07-16", vehicle: "LET-3431", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Hub Sell", amount: null, inventory: 600, item: "Hub Sell", value: 600 },
+  { id: "rec-716-6", date: "2026-07-16", vehicle: "LET-3431", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Break Washer", amount: null, inventory: 400, item: "Break Washer", value: 400 },
+  { id: "rec-716-7", date: "2026-07-16", vehicle: "LET-3431", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Break Washer", amount: null, inventory: 600, item: "Break Washer", value: 600 },
+  { id: "rec-716-8", date: "2026-07-16", vehicle: "LET-3431", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Break Oil", amount: null, inventory: 1750, item: "Break Oil", value: 1750 },
+  { id: "rec-716-9", date: "2026-07-16", vehicle: "LET-3431", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Kul patriii", amount: null, inventory: 100, item: "Kul patriii", value: 100 },
+  { id: "rec-716-10", date: "2026-07-16", vehicle: "LET-3431", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Break Oil", amount: null, inventory: 315, item: "Break Oil", value: 315 },
+  { id: "rec-716-11", date: "2026-07-16", vehicle: "ABA-9882", category: "Common Expense", subCategory: "Fuel Expense", additionalInfo: "Petrol", amount: 1000, inventory: null, item: "Petrol", value: 1000 },
+  { id: "rec-716-12", date: "2026-07-16", vehicle: "LET-3431", category: "Oil Change", additionalInfo: "Break oil", amount: 1400, inventory: null, item: "Break oil", value: 1400 },
+  { id: "rec-716-13", date: "2026-07-16", vehicle: "LET-3431", category: "Oil Change", additionalInfo: "carrociene Oil", amount: 2500, inventory: null, item: "carrociene Oil", value: 2500 },
+  { id: "rec-716-14", date: "2026-07-16", vehicle: "LET-3431", category: "Regular Expense", additionalInfo: "Greese 3 Box", amount: 3000, inventory: null, item: "Greese 3 Box", value: 3000 },
+  { id: "rec-716-15", date: "2026-07-16", vehicle: "LET-3431", category: "Irregular Expense", additionalInfo: "Leather Break Shoe", amount: 10000, inventory: null, item: "Leather Break Shoe", value: 10000 },
+  { id: "rec-716-16", date: "2026-07-16", vehicle: "LES-7977", category: "Irregular Expense", additionalInfo: "Stirrups , Welding", amount: 1300, inventory: null, item: "Stirrups , Welding", value: 1300 },
+
+  // --- DATE 7/17/2026 ---
+  { id: "rec-717-1", date: "2026-07-17", vehicle: "CAN-5768", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Engine Oil", amount: null, inventory: 4400, item: "Engine Oil", value: 4400 },
+  { id: "rec-717-2", date: "2026-07-17", vehicle: "CAN-5768", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Filter", amount: null, inventory: 1800, item: "Filter", value: 1800 },
+  { id: "rec-717-3", date: "2026-07-17", vehicle: "CAC-8123", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Lister", amount: null, inventory: 30, item: "Lister", value: 30 },
+  { id: "rec-717-4", date: "2026-07-17", vehicle: "LES-237", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Hub Sell", amount: null, inventory: 150, item: "Hub Sell", value: 150 },
+  { id: "rec-717-5", date: "2026-07-17", vehicle: "LES-237", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Break Washer", amount: null, inventory: 300, item: "Break Washer", value: 300 },
+  { id: "rec-717-6", date: "2026-07-17", vehicle: "LES-237", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Break Oil", amount: null, inventory: 315, item: "Break Oil", value: 315 },
+  { id: "rec-717-7", date: "2026-07-17", vehicle: "LET-3431", category: "Irregular Expense", additionalInfo: "Screen Intalled", amount: 3000, inventory: null, item: "Screen Intalled", value: 3000 },
+  { id: "rec-717-8", date: "2026-07-17", vehicle: "CBK-2124", category: "Irregular Expense", additionalInfo: "Side Mirror Rod Reapair", amount: 1100, inventory: null, item: "Side Mirror Rod Reapair", value: 1100 },
+  { id: "rec-717-9", date: "2026-07-17", vehicle: "LET-3431", category: "Irregular Expense", additionalInfo: "Silikone", amount: 900, inventory: null, item: "Silikone", value: 900 },
+  { id: "rec-717-10", date: "2026-07-17", vehicle: "LES-4029", category: "Irregular Expense", additionalInfo: "Beem , Grip", amount: 1200, inventory: null, item: "Beem , Grip", value: 1200 },
+  { id: "rec-717-11", date: "2026-07-17", vehicle: "CAG-925", category: "Irregular Expense", additionalInfo: "Kary , Beem", amount: 3100, inventory: null, item: "Kary , Beem", value: 3100 },
+  { id: "rec-717-12", date: "2026-07-17", vehicle: "CBJ-7792", category: "Irregular Expense", additionalInfo: "Wire , Tape , Labor", amount: 2200, inventory: null, item: "Wire , Tape , Labor", value: 2200 },
+  { id: "rec-717-13", date: "2026-07-17", vehicle: "CAZ-8204", category: "Irregular Expense", additionalInfo: "Fan Installed", amount: 300, inventory: null, item: "Fan Installed", value: 300 },
+  { id: "rec-717-14", date: "2026-07-17", vehicle: "LES-8840", category: "Oil Change", additionalInfo: "Power Oil", amount: 1100, inventory: null, item: "Power Oil", value: 1100 },
+  { id: "rec-717-15", date: "2026-07-17", vehicle: "CAN-5768", category: "fuel expense", additionalInfo: "Diesel", amount: 300, inventory: null, item: "Diesel", value: 300 },
+  { id: "rec-717-16", date: "2026-07-17", vehicle: "CAG-3096", category: "Irregular Expense", additionalInfo: "Passing", amount: 1300, inventory: null, item: "Passing", value: 1300 },
+  { id: "rec-717-17", date: "2026-07-17", vehicle: "LET-2022", category: "Irregular Expense", additionalInfo: "Allignment", amount: 500, inventory: null, item: "Allignment", value: 500 },
+
+  // --- DATE 7/18/2026 ---
+  { id: "rec-718-1", date: "2026-07-18", vehicle: "CBJ-7792", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Center Galla", amount: null, inventory: 5000, item: "Center Galla", value: 5000 },
+  { id: "rec-718-2", date: "2026-07-18", vehicle: "CBJ-7792", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Roof Razer Complete", amount: null, inventory: 1500, item: "Roof Razer Complete", value: 1500 },
+  { id: "rec-718-3", date: "2026-07-18", vehicle: "LET-3431", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Mirror Handle", amount: null, inventory: 400, item: "Mirror Handle", value: 400 },
+  { id: "rec-718-4", date: "2026-07-18", vehicle: "LES-237", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Mirror Handle", amount: null, inventory: 200, item: "Mirror Handle", value: 200 },
+  { id: "rec-718-5", date: "2026-07-18", vehicle: "CAG-3096", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Break Oil", amount: null, inventory: 630, item: "Break Oil", value: 630 },
+  { id: "rec-718-6", date: "2026-07-18", vehicle: "CAG-3096", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Break Washer", amount: null, inventory: 100, item: "Break Washer", value: 100 },
+  { id: "rec-718-7", date: "2026-07-18", vehicle: "LES-237", category: "Irregular Expense", additionalInfo: "Leather Break Shoe", amount: 2000, inventory: null, item: "Leather Break Shoe", value: 2000 },
+  { id: "rec-718-8", date: "2026-07-18", vehicle: "LET-7099", category: "Irregular Expense", additionalInfo: "Shaaft Galla , Roof , Razer , Size", amount: 3000, inventory: null, item: "Shaaft Galla , Roof , Razer , Size", value: 3000 },
+  { id: "rec-718-9", date: "2026-07-18", vehicle: "LET-7099", category: "Irregular Expense", additionalInfo: "nut", amount: 450, inventory: null, item: "nut", value: 450 },
+  { id: "rec-718-10", date: "2026-07-18", vehicle: "ABA-9882", category: "Common Expense", subCategory: "Maintenance & Repair", additionalInfo: "Tuning", amount: 1800, inventory: null, item: "Tuning", value: 1800 },
+  { id: "rec-718-11", date: "2026-07-18", vehicle: "ABA-9882", category: "Common Expense", subCategory: "Fuel Expense", additionalInfo: "Petrol", amount: 1000, inventory: null, item: "Petrol", value: 1000 },
+  { id: "rec-718-12", date: "2026-07-18", vehicle: "LES-1830", category: "Service Expense", additionalInfo: "Service Expense", amount: 1500, inventory: null, item: "Service Expense", value: 1500 },
+  { id: "rec-718-13", date: "2026-07-18", vehicle: "ABA-9882", category: "Common Expense", subCategory: "Maintenance & Repair", additionalInfo: "Puncture", amount: 450, inventory: null, item: "Puncture", value: 450 },
+  { id: "rec-718-14", date: "2026-07-18", vehicle: "ABA-9882", category: "Common Expense", subCategory: "Fuel Expense", additionalInfo: "Petrol", amount: 1000, inventory: null, item: "Petrol", value: 1000 }
 ];
 
 export const SHEET_RECORDS: ExpenseRecord[] = ALL_SHEET_RECORDS;
