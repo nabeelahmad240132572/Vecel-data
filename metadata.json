@@ -1,0 +1,6 @@
+{
+  "name": "Fleet Maintenance Dashboard",
+  "description": "Modern dark-themed expense & fleet maintenance analytics dashboard for Descon Engineering Limited with interactive data charts, cross-filtering, vehicle registers, and management features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
