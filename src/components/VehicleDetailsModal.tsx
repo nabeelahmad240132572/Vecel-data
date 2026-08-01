@@ -96,46 +96,58 @@ export const VehicleDetailsModal: React.FC<VehicleDetailsModalProps> = ({
 
         {/* Itemized Table */}
         <div className="flex-1 overflow-y-auto border border-zinc-800 rounded-xl scrollbar-thin">
-          <table className="w-full text-left font-sans text-xs">
+          <table className="w-full text-left font-sans text-xs border-collapse">
             <thead className="bg-[#09090b] border-b border-zinc-800 font-mono text-[10px] text-zinc-500 uppercase sticky top-0">
               <tr>
-                <th className="py-2.5 px-3.5">Date</th>
-                <th className="py-2.5 px-3.5">Category</th>
-                <th className="py-2.5 px-3.5">Part / Repair Job</th>
-                <th className="py-2.5 px-3.5 text-right">Cost (PKR)</th>
-                <th className="py-2.5 px-3.5 text-center w-12">Action</th>
+                <th className="py-2.5 px-3">Date</th>
+                <th className="py-2.5 px-3">Category</th>
+                <th className="py-2.5 px-3">Sub-Category</th>
+                <th className="py-2.5 px-3">Additional Info / Part</th>
+                <th className="py-2.5 px-3 text-right">Amount</th>
+                <th className="py-2.5 px-3 text-right">Inventory</th>
+                <th className="py-2.5 px-3 text-right">Total (PKR)</th>
+                <th className="py-2.5 px-3 text-center w-10">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/60">
               {vehicleRecords.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-xs text-zinc-500 font-mono">
+                  <td colSpan={8} className="py-8 text-center text-xs text-zinc-500 font-mono">
                     No expense entries recorded for vehicle {vehiclePlate}
                   </td>
                 </tr>
               ) : (
                 vehicleRecords.map(r => (
                   <tr key={r.id} className="hover:bg-zinc-800/40 transition">
-                    <td className="py-2.5 px-3.5 font-mono text-zinc-400 whitespace-nowrap">
+                    <td className="py-2.5 px-3 font-mono text-zinc-400 whitespace-nowrap">
                       {r.date || 'Undated'}
                     </td>
-                    <td className="py-2.5 px-3.5 font-mono">
-                      <span className="inline-flex items-center gap-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] px-2.5 py-0.5 rounded-full">
+                    <td className="py-2.5 px-3 font-mono">
+                      <span className="inline-flex items-center gap-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] px-2.5 py-0.5 rounded-full whitespace-nowrap">
                         <Tag className="w-2.5 h-2.5" /> {r.category}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3.5 text-zinc-100 font-medium">
-                      {r.item}
+                    <td className="py-2.5 px-3 font-mono text-zinc-400">
+                      {r.subCategory || '-'}
+                    </td>
+                    <td className="py-2.5 px-3 text-zinc-100 font-medium">
+                      {r.additionalInfo || r.item}
                       {r.notes && (
                         <div className="text-[10px] text-zinc-500 font-mono mt-0.5">
                           {r.notes}
                         </div>
                       )}
                     </td>
-                    <td className="py-2.5 px-3.5 text-right font-mono font-bold text-amber-400 whitespace-nowrap">
+                    <td className="py-2.5 px-3 text-right font-mono text-zinc-300">
+                      {r.amount != null ? fmtPKR(r.amount) : '-'}
+                    </td>
+                    <td className="py-2.5 px-3 text-right font-mono text-emerald-400">
+                      {r.inventory != null ? fmtPKR(r.inventory) : '-'}
+                    </td>
+                    <td className="py-2.5 px-3 text-right font-mono font-bold text-amber-400 whitespace-nowrap">
                       {fmtPKR(r.value)}
                     </td>
-                    <td className="py-2.5 px-3.5 text-center">
+                    <td className="py-2.5 px-3 text-center">
                       <button
                         onClick={() => onDeleteRecord(r.id)}
                         title="Delete this entry"

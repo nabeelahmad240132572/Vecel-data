@@ -7,7 +7,7 @@ import {
   computeAnalytics,
   exportToCSV,
 } from './utils/dataStore';
-import { INITIAL_RECORDS } from './data/initialData';
+import { INITIAL_RECORDS, SHEET_RECORDS, FULL_DOC_RECORDS } from './data/initialData';
 
 import { Header } from './components/Header';
 import { FilterBar } from './components/FilterBar';
@@ -22,6 +22,15 @@ import { VehicleDetailsModal } from './components/VehicleDetailsModal';
 
 export default function App() {
   const [records, setRecords] = useState<ExpenseRecord[]>(() => getStoredRecords());
+  const [activeDataset, setActiveDataset] = useState<'sheet' | 'full'>('sheet');
+
+  const handleSwitchDataset = (mode: 'sheet' | 'full') => {
+    setActiveDataset(mode);
+    const target = mode === 'sheet' ? SHEET_RECORDS : FULL_DOC_RECORDS;
+    setRecords(target);
+    saveStoredRecords(target);
+    handleClearFilters();
+  };
 
   const [filters, setFilters] = useState<FilterState>({
     category: null,
@@ -137,6 +146,8 @@ export default function App() {
           dateStart={analytics.dateRange.start}
           dateEnd={analytics.dateRange.end}
           totalRecordsCount={records.length}
+          activeDataset={activeDataset}
+          onSwitchDataset={handleSwitchDataset}
           onOpenAddModal={() => {
             setAddModalInitialVehicle('');
             setIsAddModalOpen(true);

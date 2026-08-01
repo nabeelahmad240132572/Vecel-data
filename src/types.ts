@@ -1,10 +1,15 @@
 export interface ExpenseRecord {
   id: string;
-  date: string | null; // e.g. "2026-07-02"
-  vehicle: string;    // e.g. "LET-3263"
-  category: string;   // e.g. "Irregular Expense", "Oil Change", "Regular Expense"
-  item: string;       // e.g. "Engine Oil", "Bairing", "Break Oil"
-  value: number;      // amount in PKR
+  date: string | null; // e.g. "2026-06-07"
+  vehicle: string;    // e.g. "CAX-2223"
+  category: string;   // e.g. "Oil Change", "Irregular Expense", "Common Expense"
+  subCategory?: string; // e.g. "Inventory", "Fuel Expense"
+  additionalInfo?: string; // e.g. "Engine Oil", "Filter", "petrol"
+  amount?: number | null;
+  inventory?: number | null;
+  salaryAdvance?: number | null;
+  item: string;       // e.g. "Engine Oil", "Filter", "petrol"
+  value: number;      // total value in PKR
   notes?: string;
 }
 

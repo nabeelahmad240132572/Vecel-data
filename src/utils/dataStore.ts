@@ -8,13 +8,15 @@ export function getStoredRecords(): ExpenseRecord[] {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed) && parsed.length >= INITIAL_RECORDS.length) {
         return parsed;
       }
     }
   } catch (e) {
     console.error('Failed to parse saved records', e);
   }
+  // Store updated INITIAL_RECORDS
+  saveStoredRecords(INITIAL_RECORDS);
   return INITIAL_RECORDS;
 }
 

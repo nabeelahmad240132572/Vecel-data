@@ -5,6 +5,8 @@ interface HeaderProps {
   dateStart: string;
   dateEnd: string;
   totalRecordsCount: number;
+  activeDataset: 'sheet' | 'full';
+  onSwitchDataset: (dataset: 'sheet' | 'full') => void;
   onOpenAddModal: () => void;
   onExportCSV: () => void;
   onResetData: () => void;
@@ -14,6 +16,8 @@ export const Header: React.FC<HeaderProps> = ({
   dateStart,
   dateEnd,
   totalRecordsCount,
+  activeDataset,
+  onSwitchDataset,
   onOpenAddModal,
   onExportCSV,
   onResetData,
@@ -42,10 +46,31 @@ export const Header: React.FC<HeaderProps> = ({
           DESCON ENGINEERING <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">LIMITED</span>
         </h1>
 
-        <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed font-sans">
-          Real-time maintenance expense tracking, parts replacement log & fleet analytics across active vehicles. 
-          Click any bento card, chart segment, or vehicle plate to cross-filter the ledger.
-        </p>
+        <div className="flex flex-wrap items-center gap-2 mt-3 font-mono text-xs">
+          <span className="text-zinc-400 font-sans">Active Ledger View:</span>
+          <div className="inline-flex bg-[#09090b] border border-zinc-800 p-0.5 rounded-xl">
+            <button
+              onClick={() => onSwitchDataset('sheet')}
+              className={`px-3 py-1 rounded-lg transition cursor-pointer text-xs ${
+                activeDataset === 'sheet'
+                  ? 'bg-blue-600 text-white font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              Sheet Data (9 Records)
+            </button>
+            <button
+              onClick={() => onSwitchDataset('full')}
+              className={`px-3 py-1 rounded-lg transition cursor-pointer text-xs ${
+                activeDataset === 'full'
+                  ? 'bg-blue-600 text-white font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              Full Fleet Ledger (193 Records)
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Right controls and Period Stamp */}

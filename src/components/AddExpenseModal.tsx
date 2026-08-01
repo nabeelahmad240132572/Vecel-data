@@ -31,6 +31,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
   const [vehicle, setVehicle] = useState(initialVehicle || (existingPlates[0] || 'LET-3263'));
   const [customVehicle, setCustomVehicle] = useState('');
   const [category, setCategory] = useState('Irregular Expense');
+  const [subCategory, setSubCategory] = useState('');
   const [item, setItem] = useState('');
   const [value, setValue] = useState('');
   const [notes, setNotes] = useState('');
@@ -64,6 +65,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
       date: date || null,
       vehicle: targetVehicle,
       category,
+      subCategory: subCategory.trim() || undefined,
       item: item.trim(),
       value: numVal,
       notes: notes.trim() || undefined,
@@ -155,22 +157,37 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             </div>
           </div>
 
-          {/* Category */}
-          <div>
-            <label className="block text-zinc-400 font-semibold uppercase tracking-wider mb-1">
-              Category
-            </label>
-            <select
-              value={category}
-              onChange={e => setCategory(e.target.value)}
-              className="w-full bg-[#09090b] border border-zinc-800 focus:border-blue-500 text-zinc-100 rounded-xl px-3.5 py-2.5 outline-none font-mono"
-            >
-              {CATEGORIES.map(c => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+          {/* Category & Sub-Category */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-zinc-400 font-semibold uppercase tracking-wider mb-1">
+                Category
+              </label>
+              <select
+                value={category}
+                onChange={e => setCategory(e.target.value)}
+                className="w-full bg-[#09090b] border border-zinc-800 focus:border-blue-500 text-zinc-100 rounded-xl px-3.5 py-2.5 outline-none font-mono"
+              >
+                {CATEGORIES.map(c => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-zinc-400 font-semibold uppercase tracking-wider mb-1">
+                Sub-Category
+              </label>
+              <input
+                type="text"
+                placeholder="e.g. Inventory, Fuel Expense"
+                value={subCategory}
+                onChange={e => setSubCategory(e.target.value)}
+                className="w-full bg-[#09090b] border border-zinc-800 focus:border-blue-500 text-zinc-100 rounded-xl px-3.5 py-2.5 outline-none font-mono placeholder-zinc-600"
+              />
+            </div>
           </div>
 
           {/* Item Description & Value */}
