@@ -501,7 +501,33 @@ export const ALL_SHEET_RECORDS: ExpenseRecord[] = [
   { id: "rec-720-33", date: "2026-07-20", vehicle: "CAJ-5490", category: "Irregular Expense", additionalInfo: "Passing", amount: 1300, inventory: null, item: "Passing", value: 1300 },
   { id: "rec-720-34", date: "2026-07-20", vehicle: "MNF-8722", category: "Irregular Expense", additionalInfo: "Battery AGS 21 Plate", amount: 22000, inventory: null, item: "Battery AGS 21 Plate", value: 22000 },
   { id: "rec-720-35", date: "2026-07-20", vehicle: "CAN-5763", category: "Irregular Expense", additionalInfo: "Kumaani , Stirrups , Washer", amount: 700, inventory: null, item: "Kumaani , Stirrups , Washer", value: 700 },
-  { id: "rec-720-36", date: "2026-07-20", vehicle: "LET-2022", category: "Irregular Expense", additionalInfo: "Kumaani , Stirrups , Washer", amount: 500, inventory: null, item: "Kumaani , Stirrups , Washer", value: 500 }
+  { id: "rec-720-36", date: "2026-07-20", vehicle: "LET-2022", category: "Irregular Expense", additionalInfo: "Kumaani , Stirrups , Washer", amount: 500, inventory: null, item: "Kumaani , Stirrups , Washer", value: 500 },
+
+  // --- DATE 7/21/2026 ---
+  { id: "rec-721-1", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Hub Sell F", amount: null, inventory: 300, item: "Hub Sell F", value: 300 },
+  { id: "rec-721-2", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Hub sell R", amount: null, inventory: 600, item: "Hub sell R", value: 600 },
+  { id: "rec-721-3", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Break Washer", amount: null, inventory: 600, item: "Break Washer", value: 600 },
+  { id: "rec-721-4", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Break Washer", amount: null, inventory: 400, item: "Break Washer", value: 400 },
+  { id: "rec-721-5", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Tyrod Shoe", amount: null, inventory: 100, item: "Tyrod Shoe", value: 100 },
+  { id: "rec-721-6", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Tyrod Aneed", amount: null, inventory: 5000, item: "Tyrod Aneed", value: 5000 },
+  { id: "rec-721-7", date: "2026-07-21", vehicle: "LES-4181", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Break Oil", amount: null, inventory: 1050, item: "Break Oil", value: 1050 },
+  { id: "rec-721-8", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "King Pin Bairing", amount: null, inventory: 500, item: "King Pin Bairing", value: 500 },
+  { id: "rec-721-9", date: "2026-07-21", vehicle: "LES-4181", category: "Regular Expense", subCategory: "Inventory", additionalInfo: "King pin Bush", amount: null, inventory: 1200, item: "King pin Bush", value: 1200 },
+  { id: "rec-721-10", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Shim", amount: null, inventory: 280, item: "Shim", value: 280 },
+  { id: "rec-721-11", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Carter Pin", amount: null, inventory: 100, item: "Carter Pin", value: 100 },
+  { id: "rec-721-12", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Sprit Pin", amount: null, inventory: 30, item: "Sprit Pin", value: 30 },
+  { id: "rec-721-13", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Waheel Spring", amount: null, inventory: 200, item: "Waheel Spring", value: 200 },
+  { id: "rec-721-14", date: "2026-07-21", vehicle: "CAX-1968", category: "Oil Change", subCategory: "Inventory", additionalInfo: "Engine Oil", amount: null, inventory: 4400, item: "Engine Oil", value: 4400 },
+  { id: "rec-721-15", date: "2026-07-21", vehicle: "CAX-1968", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Filter", amount: null, inventory: 1800, item: "Filter", value: 1800 },
+  { id: "rec-721-16", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Inner Handle", amount: null, inventory: 650, item: "Inner Handle", value: 650 },
+  { id: "rec-721-17", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Mirror Handle", amount: null, inventory: 400, item: "Mirror Handle", value: 400 },
+  { id: "rec-721-18", date: "2026-07-21", vehicle: "LES-237", category: "Irregular Expense", subCategory: "Inventory", additionalInfo: "Mirror Handle", amount: null, inventory: 200, item: "Mirror Handle", value: 200 },
+  { id: "rec-721-19", date: "2026-07-21", vehicle: "LES-4029", category: "Irregular Expense", additionalInfo: "Break Sarva , Master Silender", amount: 39969, inventory: null, item: "Break Sarva , Master Silender", value: 39969 },
+  { id: "rec-721-20", date: "2026-07-21", vehicle: "LET-3431", category: "Irregular Expense", additionalInfo: "Denting", amount: 10000, inventory: null, item: "Denting", value: 10000 },
+  { id: "rec-721-21", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", additionalInfo: "Break shoe", amount: 8000, inventory: null, item: "Break shoe", value: 8000 },
+  { id: "rec-721-22", date: "2026-07-21", vehicle: "LES-4181", category: "Oil Change", additionalInfo: "carrociene Oil", amount: 2500, inventory: null, item: "carrociene Oil", value: 2500 },
+  { id: "rec-721-23", date: "2026-07-21", vehicle: "LES-4181", category: "Irregular Expense", additionalInfo: "Tyrod aneed", amount: 2400, inventory: null, item: "Tyrod aneed", value: 2400 },
+  { id: "rec-721-24", date: "2026-07-21", vehicle: "ABA-9882", category: "Common Expense", subCategory: "Fuel Expense", additionalInfo: "Petrol", amount: 1000, inventory: null, item: "Petrol", value: 1000 }
 ];
 
 export const SHEET_RECORDS: ExpenseRecord[] = ALL_SHEET_RECORDS;
