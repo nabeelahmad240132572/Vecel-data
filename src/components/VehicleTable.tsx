@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { VehicleStat, ExpenseRecord } from '../types';
 import { fmtPKR, fmtCompact } from '../data/initialData';
-import { Search, Eye, Plus, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Eye, Plus, ArrowUpDown, ChevronLeft, ChevronRight, ArrowRightLeft } from 'lucide-react';
 
 interface VehicleTableProps {
   vehicles: VehicleStat[];
@@ -10,6 +10,7 @@ interface VehicleTableProps {
   onSelectVehicle: (vehicle: string) => void;
   onOpenVehicleModal: (vehicle: string) => void;
   onOpenAddModalForVehicle?: (vehicle: string) => void;
+  onOpenCompare?: (vehiclePlate: string) => void;
 }
 
 export const VehicleTable: React.FC<VehicleTableProps> = ({
@@ -18,6 +19,7 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
   onSelectVehicle,
   onOpenVehicleModal,
   onOpenAddModalForVehicle,
+  onOpenCompare,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<'value' | 'count' | 'name'>('value');
@@ -185,16 +187,26 @@ export const VehicleTable: React.FC<VehicleTableProps> = ({
                         <button
                           onClick={() => onOpenVehicleModal(v.name)}
                           title="View Vehicle Ledger & Repair History"
-                          className="p-1.5 rounded-lg hover:bg-zinc-800 text-blue-400 hover:text-blue-300 transition"
+                          className="p-1.5 rounded-lg hover:bg-zinc-800 text-blue-400 hover:text-blue-300 transition cursor-pointer"
                         >
                           <Eye className="w-3.5 h-3.5" />
                         </button>
+
+                        {onOpenCompare && (
+                          <button
+                            onClick={() => onOpenCompare(v.name)}
+                            title="Compare with another Vehicle"
+                            className="p-1.5 rounded-lg hover:bg-zinc-800 text-purple-400 hover:text-purple-300 transition cursor-pointer"
+                          >
+                            <ArrowRightLeft className="w-3.5 h-3.5" />
+                          </button>
+                        )}
 
                         {onOpenAddModalForVehicle && (
                           <button
                             onClick={() => onOpenAddModalForVehicle(v.name)}
                             title="Add Maintenance Log for this Vehicle"
-                            className="p-1.5 rounded-lg hover:bg-zinc-800 text-amber-400 hover:text-amber-300 transition"
+                            className="p-1.5 rounded-lg hover:bg-zinc-800 text-amber-400 hover:text-amber-300 transition cursor-pointer"
                           >
                             <Plus className="w-3.5 h-3.5" />
                           </button>

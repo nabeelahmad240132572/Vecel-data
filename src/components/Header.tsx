@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Download, RefreshCw, Truck, Calendar, ShieldCheck } from 'lucide-react';
+import { Plus, Download, RefreshCw, Truck, Calendar, ShieldCheck, ArrowRightLeft } from 'lucide-react';
 
 interface HeaderProps {
   dateStart: string;
@@ -10,6 +10,7 @@ interface HeaderProps {
   onOpenAddModal: () => void;
   onExportCSV: () => void;
   onResetData: () => void;
+  onOpenCompare?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -21,6 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAddModal,
   onExportCSV,
   onResetData,
+  onOpenCompare,
 }) => {
   return (
     <header className="relative mb-6 pb-6 border-b border-zinc-800 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
@@ -86,7 +88,16 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {onOpenCompare && (
+            <button
+              onClick={onOpenCompare}
+              className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 text-xs py-2.5 px-3.5 rounded-xl shadow transition active:scale-95 cursor-pointer font-sans font-semibold"
+            >
+              <ArrowRightLeft className="w-3.5 h-3.5 text-amber-400" /> Compare
+            </button>
+          )}
+
           <button
             onClick={onOpenAddModal}
             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs py-2.5 px-4 rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-95 cursor-pointer font-sans"

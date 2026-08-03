@@ -19,6 +19,8 @@ import { TopItemsList } from './components/TopItemsList';
 import { VehicleTable } from './components/VehicleTable';
 import { AddExpenseModal } from './components/AddExpenseModal';
 import { VehicleDetailsModal } from './components/VehicleDetailsModal';
+import { VehicleCompareModal } from './components/VehicleCompareModal';
+import { DataAnalyticsHub } from './components/DataAnalyticsHub';
 
 export default function App() {
   const [records, setRecords] = useState<ExpenseRecord[]>(() => getStoredRecords());
@@ -44,6 +46,15 @@ export default function App() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [addModalInitialVehicle, setAddModalInitialVehicle] = useState('');
   const [inspectedVehicle, setInspectedVehicle] = useState<string | null>(null);
+
+  // Compare Modal State
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+  const [compareVehicle1, setCompareVehicle1] = useState<string | undefined>(undefined);
+
+  const handleOpenCompare = (vPlate?: string) => {
+    setCompareVehicle1(vPlate);
+    setIsCompareModalOpen(true);
+  };
 
   // Compute filtered records & analytics memoized
   const filteredRecords = useMemo(
@@ -154,6 +165,7 @@ export default function App() {
           }}
           onExportCSV={handleExportCSV}
           onResetData={handleResetData}
+          onOpenCompare={() => handleOpenCompare()}
         />
 
         {/* Global Cross-Filter Bar */}
@@ -174,6 +186,13 @@ export default function App() {
           avgPerEntry={analytics.avgPerEntry}
           avgPerVehicle={analytics.avgPerVehicle}
           isFiltered={isFiltered}
+        />
+
+        {/* Data Analytics & Cost Intelligence Hub */}
+        <DataAnalyticsHub
+          records={filteredRecords}
+          onUpdateFilters={handleUpdateFilters}
+          onOpenVehicleModal={plate => setInspectedVehicle(plate)}
         />
 
         {/* First Grid Row: Daily Spend Trend & Category Breakdown */}
@@ -219,6 +238,7 @@ export default function App() {
             setAddModalInitialVehicle(plate);
             setIsAddModalOpen(true);
           }}
+          onOpenCompare={handleOpenCompare}
         />
 
         {/* Footer */}
@@ -256,6 +276,14 @@ export default function App() {
           setAddModalInitialVehicle(plate);
           setIsAddModalOpen(true);
         }}
+      />
+
+      {/* Vehicle Side-by-Side Comparison Modal */}
+      <VehicleCompareModal
+        isOpen={isCompareModalOpen}
+        onClose={() => setIsCompareModalOpen(false)}
+        records={records}
+        initialVehicle1={compareVehicle1}
       />
     </div>
   );
