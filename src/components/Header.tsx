@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, Download, RefreshCw, Truck, Calendar, ShieldCheck, ArrowRightLeft } from 'lucide-react';
+import { Plus, Download, RefreshCw, Truck, Calendar, ShieldCheck, ArrowRightLeft, UserCheck } from 'lucide-react';
 
 interface HeaderProps {
   dateStart: string;
@@ -77,6 +77,19 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Right controls and Period Stamp */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        {/* Operator Card */}
+        <div className="bg-[#18181b] border border-blue-500/30 px-4 py-2.5 rounded-2xl shadow-sm font-mono transition hover:border-blue-500/50">
+          <div className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+            <UserCheck className="w-3.5 h-3.5 text-blue-400" /> FLEET OPERATOR
+          </div>
+          <div className="text-xs text-zinc-100 font-bold mt-1 tracking-tight flex items-center gap-1.5 font-sans">
+            <span className="text-zinc-100">Nabeel Ahmad</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+              Verified
+            </span>
+          </div>
+        </div>
+
         {/* Date stamp card */}
         <div className="bg-[#18181b] border border-zinc-800 px-4 py-2.5 rounded-2xl shadow-sm font-mono transition hover:border-zinc-700">
           <div className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-1.5">

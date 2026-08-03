@@ -91,13 +91,19 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
         </button>
 
         {/* Modal Header */}
-        <div className="mb-5 pb-3 border-b border-zinc-800">
-          <h2 className="text-lg font-black uppercase tracking-wide text-zinc-100 flex items-center gap-2">
-            <Plus className="w-5 h-5 text-blue-400" /> Log Fleet Expense Entry
-          </h2>
-          <p className="text-xs text-zinc-400 mt-1 font-sans">
-            Add a new vehicle maintenance record to Descon Engineering's ledger.
-          </p>
+        <div className="mb-5 pb-3 border-b border-zinc-800 flex justify-between items-start">
+          <div>
+            <h2 className="text-lg font-black uppercase tracking-wide text-zinc-100 flex items-center gap-2">
+              <Plus className="w-5 h-5 text-blue-400" /> Log Fleet Expense Entry
+            </h2>
+            <p className="text-xs text-zinc-400 mt-1 font-sans">
+              Add a new vehicle maintenance record to Descon Engineering's ledger.
+            </p>
+          </div>
+          <div className="text-[10px] font-mono text-zinc-400 bg-[#09090b] px-2.5 py-1 rounded-lg border border-zinc-800 flex items-center gap-1.5 shrink-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>Operator: <strong>Nabeel Ahmad</strong></span>
+          </div>
         </div>
 
         {error && (

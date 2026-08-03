@@ -15,7 +15,11 @@ import {
   Filter,
   CheckCircle2,
   Sliders,
-  Sparkles
+  Sparkles,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp,
+  Info
 } from 'lucide-react';
 
 interface DataAnalyticsHubProps {
@@ -30,6 +34,7 @@ export const DataAnalyticsHub: React.FC<DataAnalyticsHubProps> = ({
   onOpenVehicleModal,
 }) => {
   const [activeTab, setActiveTab] = useState<'outflow' | 'anomalies' | 'dayOfWeek' | 'partsMatrix'>('outflow');
+  const [showGuide, setShowGuide] = useState<boolean>(false);
 
   // Compute comprehensive analytical metrics
   const analyticsData = useMemo(() => {
@@ -142,53 +147,116 @@ export const DataAnalyticsHub: React.FC<DataAnalyticsHubProps> = ({
           </div>
         </div>
 
-        {/* Tab Buttons */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-[#09090b] p-1 rounded-xl border border-zinc-800">
+        {/* Tab Buttons & User Guide Toggle */}
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            onClick={() => setActiveTab('outflow')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'outflow'
-                ? 'bg-blue-600 text-white shadow'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-            }`}
+            onClick={() => setShowGuide(!showGuide)}
+            className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-blue-400 border border-blue-500/30 transition cursor-pointer flex items-center gap-1.5"
+            title="Dashboard Usage Guide & Explainer"
           >
-            <DollarSign className="w-3.5 h-3.5" /> Outflow Split
+            <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
+            <span>Guide / رہنمائی</span>
+            {showGuide ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
 
-          <button
-            onClick={() => setActiveTab('anomalies')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'anomalies'
-                ? 'bg-amber-600 text-white shadow'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-            }`}
-          >
-            <AlertCircle className="w-3.5 h-3.5" /> Major Overhauls ({analyticsData.anomalies.length})
-          </button>
+          <div className="flex flex-wrap items-center gap-1.5 bg-[#09090b] p-1 rounded-xl border border-zinc-800">
+            <button
+              onClick={() => setActiveTab('outflow')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'outflow'
+                  ? 'bg-blue-600 text-white shadow'
+                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+              }`}
+            >
+              <DollarSign className="w-3.5 h-3.5" /> Outflow Split
+            </button>
 
-          <button
-            onClick={() => setActiveTab('dayOfWeek')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'dayOfWeek'
-                ? 'bg-purple-600 text-white shadow'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-            }`}
-          >
-            <Calendar className="w-3.5 h-3.5" /> Day Trends
-          </button>
+            <button
+              onClick={() => setActiveTab('anomalies')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'anomalies'
+                  ? 'bg-amber-600 text-white shadow'
+                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+              }`}
+            >
+              <AlertCircle className="w-3.5 h-3.5" /> Major Overhauls ({analyticsData.anomalies.length})
+            </button>
 
-          <button
-            onClick={() => setActiveTab('partsMatrix')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'partsMatrix'
-                ? 'bg-emerald-600 text-white shadow'
-                : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" /> Parts Matrix
-          </button>
+            <button
+              onClick={() => setActiveTab('dayOfWeek')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'dayOfWeek'
+                  ? 'bg-purple-600 text-white shadow'
+                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+              }`}
+            >
+              <Calendar className="w-3.5 h-3.5" /> Day Trends
+            </button>
+
+            <button
+              onClick={() => setActiveTab('partsMatrix')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'partsMatrix'
+                  ? 'bg-emerald-600 text-white shadow'
+                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" /> Parts Matrix
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Collapsible Interactive Help Guide */}
+      {showGuide && (
+        <div className="bg-[#09090b] border border-blue-500/30 p-4 rounded-xl mb-5 space-y-3 text-xs text-zinc-300 transition animate-in fade-in">
+          <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+            <span className="font-bold text-blue-400 flex items-center gap-2 font-mono uppercase tracking-wider text-[11px]">
+              <Info className="w-4 h-4 text-blue-400" /> Fleet Ledger Quick Guide & Understanding Help
+            </span>
+            <span className="text-[10px] text-zinc-500 font-mono">Descon Operations Ledger</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div className="bg-[#121215] p-3 rounded-lg border border-zinc-800">
+              <div className="font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
+                <DollarSign className="w-3.5 h-3.5" /> Cash vs Store Inventory
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                <strong>Cash Paid:</strong> Out-of-pocket cash given for external workshop repair & fuel.<br/>
+                <strong>Warehouse Store:</strong> Issued spare parts directly from Descon store inventory.
+              </p>
+            </div>
+
+            <div className="bg-[#121215] p-3 rounded-lg border border-zinc-800">
+              <div className="font-bold text-amber-400 mb-1 flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5" /> Major Overhauls
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                Single repairs costing ≥ <strong>PKR 3,000</strong> are flagged as Major Overhauls for auditing & maintenance tracking.
+              </p>
+            </div>
+
+            <div className="bg-[#121215] p-3 rounded-lg border border-zinc-800">
+              <div className="font-bold text-purple-400 mb-1 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" /> Day Trends & Peak Days
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                Shows which day of the week experiences highest vehicle maintenance spending to optimize workshop scheduling.
+              </p>
+            </div>
+
+            <div className="bg-[#121215] p-3 rounded-lg border border-zinc-800">
+              <div className="font-bold text-blue-400 mb-1 flex items-center gap-1.5">
+                <Filter className="w-3.5 h-3.5" /> Interactive Filtering
+              </div>
+              <p className="text-[11px] text-zinc-400 leading-relaxed">
+                Click any vehicle number or category pill anywhere to filter the charts, tables, and total ledger instantly.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Tab 1: Financial Outflow Split (Cash vs Inventory Stock) */}
       {activeTab === 'outflow' && (
