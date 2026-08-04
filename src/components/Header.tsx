@@ -33,11 +33,11 @@ export const Header: React.FC<HeaderProps> = ({
           src={heroBgPath}
           alt="Descon Fleet Logistics Background"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center opacity-30 mix-blend-luminosity scale-105"
+          className="w-full h-full object-cover object-center opacity-75 sm:opacity-85 transition-opacity duration-300"
         />
-        {/* Dark Multi-layer Gradient Overlays for High Legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#09090b] via-[#09090b]/90 to-[#09090b]/75" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-black/40" />
+        {/* Subtle Dark Gradient Overlay for High Text Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-black/30" />
       </div>
 
       {/* Decorative gradient top bar */}
