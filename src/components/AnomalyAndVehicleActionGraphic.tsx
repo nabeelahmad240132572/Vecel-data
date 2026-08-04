@@ -17,11 +17,15 @@ import {
   ChevronUp,
   Sparkles,
   Zap,
-  Activity
+  Activity,
+  Layers,
+  ArrowRight,
+  BarChart3,
+  Check,
+  RotateCcw
 } from 'lucide-react';
 import { ExpenseRecord, FilterState } from '../types';
 import { fmtPKR } from '../data/initialData';
-import graphicBannerPath from '../assets/images/fleet_expense_anomaly_graphic_1785832614385.jpg';
 
 interface AnomalyAndVehicleActionGraphicProps {
   records: ExpenseRecord[];
@@ -50,7 +54,7 @@ export const AnomalyAndVehicleActionGraphic: React.FC<AnomalyAndVehicleActionGra
   onOpenVehicleDetails,
 }) => {
   const [activeTab, setActiveTab] = useState<'anomalies' | 'totalBreakdown' | 'vehicleHealth' | 'actions'>('anomalies');
-  const [showGraphicBanner, setShowGraphicBanner] = useState<boolean>(true);
+  const [showGraphicDiagram, setShowGraphicDiagram] = useState<boolean>(true);
   const [actionStatuses, setActionStatuses] = useState<Record<string, 'Pending' | 'In Progress' | 'Resolved'>>({});
 
   // 1. Detect Irregular Expenses & Anomalies
@@ -275,42 +279,115 @@ export const AnomalyAndVehicleActionGraphic: React.FC<AnomalyAndVehicleActionGra
         </div>
       </div>
 
-      {/* Visual Infographic Diagram Banner */}
-      {showGraphicBanner && (
-        <div className="mt-4 relative rounded-xl overflow-hidden border border-zinc-800 bg-[#09090b] group transition-all">
-          <div className="relative aspect-[21/6] sm:aspect-[24/5] w-full overflow-hidden bg-zinc-950">
-            <img
-              src={graphicBannerPath}
-              alt="Fleet Expense Anomaly & Diagnostic Graphic Blueprint"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.01] transition-all duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-90" />
-            
-            {/* Overlay Info */}
-            <div className="absolute bottom-3 left-4 right-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
-              <div className="flex items-center gap-2 bg-[#09090b]/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-zinc-700/60 text-zinc-200">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>Diagnostic Graphic Blueprint: Anomaly Radar & Action Flow</span>
+      {/* Interactive Vector Diagnostic Blueprint Diagram (No raster photo used) */}
+      {showGraphicDiagram && (
+        <div className="mt-4 relative rounded-xl overflow-hidden border border-zinc-800 bg-[#09090b] transition-all p-4">
+          <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800/80">
+            <div className="flex items-center gap-2 text-zinc-200">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span className="font-mono text-xs font-bold uppercase tracking-wider">
+                Fleet Expense Telemetry & Diagnostic Flowchart Diagram
+              </span>
+            </div>
+            <button
+              onClick={() => setShowGraphicDiagram(false)}
+              className="text-[10px] text-zinc-400 hover:text-zinc-200 bg-zinc-900 px-2.5 py-1 rounded border border-zinc-800 cursor-pointer font-mono"
+            >
+              Hide Diagram
+            </button>
+          </div>
+
+          {/* Flowchart Diagram Steps Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 relative">
+            {/* Connecting Line background on desktop */}
+            <div className="hidden md:block absolute top-1/2 left-12 right-12 h-0.5 bg-gradient-to-r from-blue-500/30 via-amber-500/30 to-emerald-500/30 -translate-y-1/2 pointer-events-none z-0" />
+
+            {/* Step 1: Ingestion */}
+            <div className="relative z-10 bg-[#121215] border border-blue-500/30 rounded-xl p-3.5 flex flex-col justify-between space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold">
+                  STEP 01
+                </span>
+                <Package className="w-4 h-4 text-blue-400" />
               </div>
-              <button
-                onClick={() => setShowGraphicBanner(false)}
-                className="text-[10px] text-zinc-400 hover:text-zinc-200 bg-zinc-900/80 px-2.5 py-1 rounded border border-zinc-800 cursor-pointer self-start sm:self-auto"
-              >
-                Hide Diagram
-              </button>
+              <div>
+                <h4 className="text-xs font-bold text-zinc-100 font-mono">1. Ledger Ingestion</h4>
+                <p className="text-[11px] text-zinc-400 mt-1">
+                  Cash purchases & Descon store warehouse stock issuances logged per vehicle.
+                </p>
+              </div>
+              <div className="text-[10px] font-mono text-blue-400 bg-blue-950/40 p-1.5 rounded border border-blue-900/60 mt-2">
+                Total Logs: {records.length}
+              </div>
+            </div>
+
+            {/* Step 2: Anomaly Engine */}
+            <div className="relative z-10 bg-[#121215] border border-amber-500/30 rounded-xl p-3.5 flex flex-col justify-between space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">
+                  STEP 02
+                </span>
+                <AlertTriangle className="w-4 h-4 text-amber-400" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-zinc-100 font-mono">2. Anomaly Engine</h4>
+                <p className="text-[11px] text-zinc-400 mt-1">
+                  Scans cost spikes (≥3,000 PKR), repeat part replacements & stock discrepancies.
+                </p>
+              </div>
+              <div className="text-[10px] font-mono text-amber-400 bg-amber-950/40 p-1.5 rounded border border-amber-900/60 mt-2 font-bold">
+                Flagged Spikes: {anomalyAnalysis.length}
+              </div>
+            </div>
+
+            {/* Step 3: Vehicle Risk Index */}
+            <div className="relative z-10 bg-[#121215] border border-purple-500/30 rounded-xl p-3.5 flex flex-col justify-between space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 font-bold">
+                  STEP 03
+                </span>
+                <Truck className="w-4 h-4 text-purple-400" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-zinc-100 font-mono">3. Vehicle Health Score</h4>
+                <p className="text-[11px] text-zinc-400 mt-1">
+                  Computes risk score per license plate based on total repair expenditure.
+                </p>
+              </div>
+              <div className="text-[10px] font-mono text-purple-400 bg-purple-950/40 p-1.5 rounded border border-purple-900/60 mt-2">
+                Active Vehicles: {vehicleMatrix.length}
+              </div>
+            </div>
+
+            {/* Step 4: Action Directives */}
+            <div className="relative z-10 bg-[#121215] border border-emerald-500/30 rounded-xl p-3.5 flex flex-col justify-between space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">
+                  STEP 04
+                </span>
+                <Zap className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-zinc-100 font-mono">4. Action Directives</h4>
+                <p className="text-[11px] text-zinc-400 mt-1">
+                  Generates workshop audits, gate-pass verifications & clearance directives.
+                </p>
+              </div>
+              <div className="text-[10px] font-mono text-emerald-400 bg-emerald-950/40 p-1.5 rounded border border-emerald-900/60 mt-2 font-bold">
+                Directives Generated: {recommendedActions.length}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {!showGraphicBanner && (
+      {!showGraphicDiagram && (
         <div className="mt-3 flex justify-end">
           <button
-            onClick={() => setShowGraphicBanner(true)}
+            onClick={() => setShowGraphicDiagram(true)}
             className="text-[10px] font-mono text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
           >
-            <Sparkles className="w-3 h-3" /> Show Visual Infographic Diagram
+            <Sparkles className="w-3 h-3" /> Show Diagnostic Flowchart Diagram
           </button>
         </div>
       )}
