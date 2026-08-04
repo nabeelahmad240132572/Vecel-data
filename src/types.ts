@@ -59,3 +59,10 @@ export interface ItemStat {
   value: number;
   count: number;
 }
+
+export interface SubCategoryStat {
+  name: string;
+  value: number;
+  count: number;
+  percentage: number;
+}

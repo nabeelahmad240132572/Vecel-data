@@ -21,6 +21,7 @@ import { AddExpenseModal } from './components/AddExpenseModal';
 import { VehicleDetailsModal } from './components/VehicleDetailsModal';
 import { VehicleCompareModal } from './components/VehicleCompareModal';
 import { DataAnalyticsHub } from './components/DataAnalyticsHub';
+import { AnomalyAndVehicleActionGraphic } from './components/AnomalyAndVehicleActionGraphic';
 
 export default function App() {
   const [records, setRecords] = useState<ExpenseRecord[]>(() => getStoredRecords());
@@ -175,17 +176,31 @@ export default function App() {
           onClearAll={handleClearFilters}
           filteredCount={filteredRecords.length}
           totalCount={records.length}
+          records={records}
         />
 
         {/* KPI Strip */}
         <KPICards
           totalSpend={analytics.totalSpend}
           totalAllSpend={analytics.totalAllSpend}
+          totalInventory={analytics.totalInventory}
+          totalPurchase={analytics.totalPurchase}
           recordCount={analytics.recordCount}
           vehicleCount={analytics.vehicleCount}
           avgPerEntry={analytics.avgPerEntry}
           avgPerVehicle={analytics.avgPerVehicle}
           isFiltered={isFiltered}
+          subCategories={analytics.subCategories}
+          onSelectSubCategory={subCat => handleUpdateFilters({ search: subCat })}
+        />
+
+        {/* Anomaly Analytics & Action Graphic Matrix */}
+        <AnomalyAndVehicleActionGraphic
+          records={filteredRecords}
+          allRecords={records}
+          onFilterByVehicle={plate => handleUpdateFilters({ vehicle: plate })}
+          onFilterByCategory={cat => handleUpdateFilters({ category: cat })}
+          onOpenVehicleDetails={plate => setInspectedVehicle(plate)}
         />
 
         {/* Data Analytics & Cost Intelligence Hub */}

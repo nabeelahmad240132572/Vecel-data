@@ -65,6 +65,49 @@ export function computeAnalytics(filteredRecords: ExpenseRecord[], allRecords: E
   const avgPerEntry = recordCount > 0 ? totalSpend / recordCount : 0;
   const avgPerVehicle = vehicleCount > 0 ? totalSpend / vehicleCount : 0;
 
+  // Inventory vs Purchase (Cash) Breakdown
+  let totalInventory = 0;
+  let totalPurchase = 0;
+  let totalSalaryAdvance = 0;
+
+  filteredRecords.forEach(r => {
+    if (r.inventory && r.inventory > 0) {
+      totalInventory += r.inventory;
+    } else if (r.subCategory === 'Inventory') {
+      totalInventory += r.value;
+    }
+
+    if (r.amount && r.amount > 0) {
+      totalPurchase += r.amount;
+    } else if (!r.inventory) {
+      totalPurchase += r.value;
+    }
+
+    if (r.salaryAdvance) {
+      totalSalaryAdvance += r.salaryAdvance;
+    }
+  });
+
+  // SubCategory Aggregation
+  const subCatMap: Record<string, { value: number; count: number }> = {};
+  filteredRecords.forEach(r => {
+    const sub = r.subCategory || (r.inventory ? 'Inventory' : 'General / Direct Purchase');
+    if (!subCatMap[sub]) {
+      subCatMap[sub] = { value: 0, count: 0 };
+    }
+    subCatMap[sub].value += r.value;
+    subCatMap[sub].count += 1;
+  });
+
+  const subCategories = Object.entries(subCatMap)
+    .map(([name, data]) => ({
+      name,
+      value: data.value,
+      count: data.count,
+      percentage: totalSpend > 0 ? (data.value / totalSpend) * 100 : 0,
+    }))
+    .sort((a, b) => b.value - a.value);
+
   // Category Aggregation
   const catMap: Record<string, { value: number; count: number }> = {};
   filteredRecords.forEach(r => {
@@ -158,11 +201,15 @@ export function computeAnalytics(filteredRecords: ExpenseRecord[], allRecords: E
   return {
     totalSpend,
     totalAllSpend,
+    totalInventory,
+    totalPurchase,
+    totalSalaryAdvance,
     recordCount,
     vehicleCount,
     avgPerEntry,
     avgPerVehicle,
     categories,
+    subCategories,
     vehicles,
     dailyTrend,
     topItems,
