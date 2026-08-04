@@ -28,7 +28,50 @@ export function saveStoredRecords(records: ExpenseRecord[]): void {
   }
 }
 
+export function normalizeDate(dateStr: string | null | undefined): string | null {
+  if (!dateStr) return null;
+  const str = dateStr.trim();
+  if (!str) return null;
+
+  // YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+    return str.substring(0, 10);
+  }
+
+  // YYYY/MM/DD
+  if (/^\d{4}\/\d{1,2}\/\d{1,2}/.test(str)) {
+    const parts = str.split('/');
+    const y = parts[0];
+    const m = parts[1].padStart(2, '0');
+    const d = parts[2].padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  // D/M/YYYY or DD/MM/YYYY
+  if (/^\d{1,2}\/\d{1,2}\/\d{4}/.test(str)) {
+    const parts = str.split('/');
+    const d = parts[0].padStart(2, '0');
+    const m = parts[1].padStart(2, '0');
+    const y = parts[2];
+    return `${y}-${m}-${d}`;
+  }
+
+  // Fallback try Date object
+  const d = new Date(str);
+  if (!isNaN(d.getTime())) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  return null;
+}
+
 export function filterRecords(records: ExpenseRecord[], filters: FilterState): ExpenseRecord[] {
+  const startDate = normalizeDate(filters.dateStart);
+  const endDate = normalizeDate(filters.dateEnd);
+
   return records.filter(r => {
     // Category filter
     if (filters.category && r.category !== filters.category) return false;
@@ -36,18 +79,23 @@ export function filterRecords(records: ExpenseRecord[], filters: FilterState): E
     if (filters.vehicle && r.vehicle !== filters.vehicle) return false;
     // Item filter
     if (filters.item && r.item !== filters.item) return false;
-    // Date start
-    if (filters.dateStart && r.date && r.date < filters.dateStart) return false;
-    // Date end
-    if (filters.dateEnd && r.date && r.date > filters.dateEnd) return false;
+
+    // Date Start & End filtering
+    if (startDate || endDate) {
+      const recordDate = normalizeDate(r.date);
+      if (!recordDate) return false; // Hide undated entries if date filtering is applied
+      if (startDate && recordDate < startDate) return false;
+      if (endDate && recordDate > endDate) return false;
+    }
+
     // Search query
     if (filters.search) {
       const q = filters.search.toLowerCase();
-      const matchVeh = r.vehicle.toLowerCase().includes(q);
-      const matchCat = r.category.toLowerCase().includes(q);
-      const matchItem = r.item.toLowerCase().includes(q);
-      const matchVal = r.value.toString().includes(q);
-      const matchDate = r.date ? r.date.includes(q) : false;
+      const matchVeh = r.vehicle ? r.vehicle.toLowerCase().includes(q) : false;
+      const matchCat = r.category ? r.category.toLowerCase().includes(q) : false;
+      const matchItem = r.item ? r.item.toLowerCase().includes(q) : false;
+      const matchVal = r.value !== undefined ? r.value.toString().includes(q) : false;
+      const matchDate = r.date ? r.date.toLowerCase().includes(q) : false;
       if (!matchVeh && !matchCat && !matchItem && !matchVal && !matchDate) return false;
     }
     return true;

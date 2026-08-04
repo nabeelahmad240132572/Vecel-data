@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Filter, X, Search, Calendar, RotateCcw, Truck, Tag, SlidersHorizontal, Check } from 'lucide-react';
 import { FilterState, ExpenseRecord } from '../types';
+import { normalizeDate } from '../utils/dataStore';
 
 interface FilterBarProps {
   filters: FilterState;
@@ -45,6 +46,37 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       .sort((a, b) => b.count - a.count);
   }, [records]);
 
+  // Extract dynamic available months from records
+  const monthPresets = useMemo(() => {
+    const monthMap: Record<string, { label: string; start: string; end: string }> = {};
+
+    records.forEach(r => {
+      if (r.date) {
+        const norm = normalizeDate(r.date);
+        if (norm && norm.length >= 7) {
+          const ym = norm.substring(0, 7); // e.g. "2026-06"
+          if (!monthMap[ym]) {
+            const [year, month] = ym.split('-');
+            const dateObj = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
+            const monthName = dateObj.toLocaleString('en-US', { month: 'short' });
+            const lastDay = new Date(parseInt(year, 10), parseInt(month, 10), 0).getDate();
+            const padLastDay = String(lastDay).padStart(2, '0');
+
+            monthMap[ym] = {
+              label: `${monthName} ${year}`,
+              start: `${ym}-01`,
+              end: `${ym}-${padLastDay}`,
+            };
+          }
+        }
+      }
+    });
+
+    return Object.entries(monthMap)
+      .map(([ym, data]) => ({ ym, ...data }))
+      .sort((a, b) => a.ym.localeCompare(b.ym));
+  }, [records]);
+
   const hasActiveFilters =
     Boolean(filters.category) ||
     Boolean(filters.vehicle) ||
@@ -52,21 +84,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     Boolean(filters.dateStart) ||
     Boolean(filters.dateEnd) ||
     Boolean(filters.search.trim());
-
-  // Quick Date Range Presets
-  const handleApplyPreset = (preset: 'all' | 'jan2025' | 'feb2025' | 'year2025' | 'year2024') => {
-    if (preset === 'all') {
-      onUpdateFilters({ dateStart: null, dateEnd: null });
-    } else if (preset === 'jan2025') {
-      onUpdateFilters({ dateStart: '2025-01-01', dateEnd: '2025-01-31' });
-    } else if (preset === 'feb2025') {
-      onUpdateFilters({ dateStart: '2025-02-01', dateEnd: '2025-02-28' });
-    } else if (preset === 'year2025') {
-      onUpdateFilters({ dateStart: '2025-01-01', dateEnd: '2025-12-31' });
-    } else if (preset === 'year2024') {
-      onUpdateFilters({ dateStart: '2024-01-01', dateEnd: '2024-12-31' });
-    }
-  };
 
   return (
     <div className="bg-[#18181b] border border-zinc-800 rounded-2xl p-4 sm:p-5 mb-6 shadow-xl relative overflow-hidden transition-all">
@@ -119,15 +136,15 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         {/* 1. Date Range Filter Block (lg:col-span-5) */}
         <div className="lg:col-span-5 bg-[#09090b] border border-zinc-800/90 p-3 rounded-xl flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-[11px] font-mono uppercase text-zinc-400 font-semibold flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-blue-400" /> Date Range Filter (تاریخ)
+            <label className="text-[11px] font-mono uppercase text-zinc-300 font-semibold flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-blue-400" /> Date Range Filter (تاریخ کی حد)
             </label>
             {(filters.dateStart || filters.dateEnd) && (
               <button
                 onClick={() => onUpdateFilters({ dateStart: null, dateEnd: null })}
-                className="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer"
+                className="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer font-bold"
               >
-                Clear Dates
+                Clear Dates / ختم کریں
               </button>
             )}
           </div>
@@ -135,57 +152,69 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           {/* Start & End Date Inputs */}
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <span className="text-[10px] text-zinc-500 font-mono block mb-0.5">From Date:</span>
+              <span className="text-[10px] text-zinc-400 font-mono block mb-1">
+                From Date (شروع):
+              </span>
               <input
                 type="date"
                 value={filters.dateStart || ''}
                 onChange={e => onUpdateFilters({ dateStart: e.target.value || null })}
-                className="w-full bg-[#18181b] border border-zinc-700/80 focus:border-blue-500 rounded-lg text-xs px-2.5 py-1.5 text-zinc-100 outline-none font-mono"
+                className="w-full bg-[#18181b] border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-xs px-2.5 py-1.5 text-zinc-100 outline-none font-mono cursor-pointer"
               />
             </div>
             <div>
-              <span className="text-[10px] text-zinc-500 font-mono block mb-0.5">To Date:</span>
+              <span className="text-[10px] text-zinc-400 font-mono block mb-1">
+                To Date (آخری):
+              </span>
               <input
                 type="date"
                 value={filters.dateEnd || ''}
                 onChange={e => onUpdateFilters({ dateEnd: e.target.value || null })}
-                className="w-full bg-[#18181b] border border-zinc-700/80 focus:border-blue-500 rounded-lg text-xs px-2.5 py-1.5 text-zinc-100 outline-none font-mono"
+                className="w-full bg-[#18181b] border border-zinc-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-lg text-xs px-2.5 py-1.5 text-zinc-100 outline-none font-mono cursor-pointer"
               />
             </div>
           </div>
 
           {/* Quick Preset Buttons */}
-          <div className="flex flex-wrap items-center gap-1 pt-1 border-t border-zinc-800/60">
-            <span className="text-[10px] text-zinc-500 font-mono mr-1">Presets:</span>
+          <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-zinc-800/60">
+            <span className="text-[10px] text-zinc-400 font-mono mr-1">Presets:</span>
             <button
-              onClick={() => handleApplyPreset('all')}
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border transition cursor-pointer ${
+              onClick={() => onUpdateFilters({ dateStart: null, dateEnd: null })}
+              className={`text-[10px] font-mono px-2 py-1 rounded-lg border transition cursor-pointer ${
                 !filters.dateStart && !filters.dateEnd
-                  ? 'bg-blue-600 text-white border-blue-500 font-bold'
+                  ? 'bg-blue-600 text-white border-blue-500 font-bold shadow'
                   : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200'
               }`}
             >
-              All Time
+              All Time / تمام
             </button>
+
+            {monthPresets.map(mp => {
+              const isSelected = filters.dateStart === mp.start && filters.dateEnd === mp.end;
+              return (
+                <button
+                  key={mp.ym}
+                  onClick={() => onUpdateFilters({ dateStart: mp.start, dateEnd: mp.end })}
+                  className={`text-[10px] font-mono px-2 py-1 rounded-lg border transition cursor-pointer ${
+                    isSelected
+                      ? 'bg-blue-600 text-white border-blue-500 font-bold shadow'
+                      : 'bg-zinc-900 text-zinc-300 border-zinc-800 hover:text-zinc-100 hover:border-zinc-700'
+                  }`}
+                >
+                  {mp.label}
+                </button>
+              );
+            })}
+
             <button
-              onClick={() => handleApplyPreset('jan2025')}
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border transition cursor-pointer ${
-                filters.dateStart === '2025-01-01' && filters.dateEnd === '2025-01-31'
-                  ? 'bg-blue-600 text-white border-blue-500 font-bold'
+              onClick={() => onUpdateFilters({ dateStart: '2026-01-01', dateEnd: '2026-12-31' })}
+              className={`text-[10px] font-mono px-2 py-1 rounded-lg border transition cursor-pointer ${
+                filters.dateStart === '2026-01-01' && filters.dateEnd === '2026-12-31'
+                  ? 'bg-blue-600 text-white border-blue-500 font-bold shadow'
                   : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200'
               }`}
             >
-              Jan 2025
-            </button>
-            <button
-              onClick={() => handleApplyPreset('feb2025')}
-              className={`text-[10px] font-mono px-2 py-0.5 rounded border transition cursor-pointer ${
-                filters.dateStart === '2025-02-01' && filters.dateEnd === '2025-02-28'
-                  ? 'bg-blue-600 text-white border-blue-500 font-bold'
-                  : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200'
-              }`}
-            >
-              Feb 2025
+              Year 2026
             </button>
           </div>
         </div>
