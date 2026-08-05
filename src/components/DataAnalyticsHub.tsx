@@ -155,7 +155,7 @@ export const DataAnalyticsHub: React.FC<DataAnalyticsHubProps> = ({
             title="Dashboard Usage Guide & Explainer"
           >
             <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
-            <span>Guide / رہنمائی</span>
+            <span>Usage Guide</span>
             {showGuide ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
 

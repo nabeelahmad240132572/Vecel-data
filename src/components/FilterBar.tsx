@@ -136,15 +136,15 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         {/* 1. Date Range Filter Block (lg:col-span-5) */}
         <div className="lg:col-span-5 bg-[#09090b] border border-zinc-800/90 p-3 rounded-xl flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-[11px] font-mono uppercase text-zinc-300 font-semibold flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-blue-400" /> Date Range Filter (تاریخ کی حد)
+            <label className="text-[11px] font-mono uppercase text-zinc-200 font-bold tracking-wider flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5 text-blue-400" /> Date Range Filter
             </label>
             {(filters.dateStart || filters.dateEnd) && (
               <button
                 onClick={() => onUpdateFilters({ dateStart: null, dateEnd: null })}
                 className="text-[10px] font-mono text-amber-400 hover:underline cursor-pointer font-bold"
               >
-                Clear Dates / ختم کریں
+                Clear Dates
               </button>
             )}
           </div>
@@ -153,7 +153,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <div className="grid grid-cols-2 gap-2">
             <div>
               <span className="text-[10px] text-zinc-400 font-mono block mb-1">
-                From Date (شروع):
+                From Date:
               </span>
               <input
                 type="date"
@@ -164,7 +164,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             </div>
             <div>
               <span className="text-[10px] text-zinc-400 font-mono block mb-1">
-                To Date (آخری):
+                To Date:
               </span>
               <input
                 type="date"
@@ -186,7 +186,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                   : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200'
               }`}
             >
-              All Time / تمام
+              All Time
             </button>
 
             {monthPresets.map(mp => {
@@ -222,8 +222,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         {/* 2. Vehicle Selector Filter Block (lg:col-span-3) */}
         <div className="lg:col-span-3 bg-[#09090b] border border-zinc-800/90 p-3 rounded-xl flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-[11px] font-mono uppercase text-zinc-400 font-semibold flex items-center gap-1.5">
-              <Truck className="w-3.5 h-3.5 text-blue-400" /> Vehicle Plate (گاڑیاں)
+            <label className="text-[11px] font-mono uppercase text-zinc-200 font-bold tracking-wider flex items-center gap-1.5">
+              <Truck className="w-3.5 h-3.5 text-blue-400" /> Vehicle Plate
             </label>
             {filters.vehicle && (
               <button
@@ -258,8 +258,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         {/* 3. Category Selector Filter Block (lg:col-span-4) */}
         <div className="lg:col-span-4 bg-[#09090b] border border-zinc-800/90 p-3 rounded-xl flex flex-col justify-between space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-[11px] font-mono uppercase text-zinc-400 font-semibold flex items-center gap-1.5">
-              <Tag className="w-3.5 h-3.5 text-blue-400" /> Category (کیٹیگری)
+            <label className="text-[11px] font-mono uppercase text-zinc-200 font-bold tracking-wider flex items-center gap-1.5">
+              <Tag className="w-3.5 h-3.5 text-blue-400" /> Expense Category
             </label>
             {filters.category && (
               <button

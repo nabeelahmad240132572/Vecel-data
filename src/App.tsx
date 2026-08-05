@@ -182,63 +182,72 @@ export default function App() {
         />
 
         {/* Top Page Navigation Bar / Module Switcher */}
-        <div className="bg-[#121215] border border-zinc-800 rounded-2xl p-2 mb-6 shadow-xl flex flex-wrap items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center gap-1.5">
-            <button
-              onClick={() => setActivePage('overview')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                activePage === 'overview'
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                  : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60'
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4 text-amber-400" />
-              <span>Overview & Charts</span>
-            </button>
+        <div className="relative bg-[#121215]/95 backdrop-blur-xl border border-zinc-700/80 rounded-2xl p-2.5 sm:p-3 mb-6 shadow-2xl overflow-hidden transition-all">
+          {/* Subtle accent glow */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-500 via-amber-400 to-emerald-400 opacity-90" />
 
-            <button
-              onClick={() => setActivePage('anomalyMatrix')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer relative ${
-                activePage === 'anomalyMatrix'
-                  ? 'bg-amber-500 text-zinc-950 font-black shadow-lg shadow-amber-500/25'
-                  : 'text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 border border-amber-500/30'
-              }`}
-            >
-              <AlertTriangle className="w-4 h-4" />
-              <span>Fleet Expense Anomaly & Vehicle Action Matrix</span>
-              <span className="ml-1 text-[9px] font-mono px-1.5 py-0.2 rounded-full bg-red-600 text-white font-bold animate-pulse">
-                New Page
-              </span>
-            </button>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            {/* Navigation Tabs */}
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => setActivePage('overview')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 flex items-center gap-2.5 cursor-pointer border ${
+                  activePage === 'overview'
+                    ? 'bg-blue-600 text-white border-blue-400 shadow-lg shadow-blue-600/30 ring-1 ring-blue-400/50'
+                    : 'bg-zinc-900/80 text-zinc-300 border-zinc-800 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/80'
+                }`}
+              >
+                <LayoutDashboard className={`w-4 h-4 ${activePage === 'overview' ? 'text-amber-300' : 'text-amber-400'}`} />
+                <span>1. Overview & Analytics</span>
+              </button>
 
-            <button
-              onClick={() => setActivePage('vehicleRegister')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                activePage === 'vehicleRegister'
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                  : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60'
-              }`}
-            >
-              <Truck className="w-4 h-4 text-blue-400" />
-              <span>Vehicle Register</span>
-            </button>
+              <button
+                onClick={() => setActivePage('anomalyMatrix')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 flex items-center gap-2.5 cursor-pointer relative border ${
+                  activePage === 'anomalyMatrix'
+                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 border-amber-300 shadow-lg shadow-amber-500/30 ring-1 ring-amber-300 font-black'
+                    : 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20 hover:border-amber-500/50 hover:text-amber-300'
+                }`}
+              >
+                <AlertTriangle className={`w-4 h-4 ${activePage === 'anomalyMatrix' ? 'text-zinc-950' : 'text-amber-400 animate-pulse'}`} />
+                <span>2. Expense Anomaly & Action Matrix</span>
+                <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${
+                  activePage === 'anomalyMatrix' ? 'bg-zinc-950 text-amber-400' : 'bg-amber-500 text-zinc-950'
+                }`}>
+                  Dedicated Page
+                </span>
+              </button>
 
-            <button
-              onClick={() => setActivePage('fullView')}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
-                activePage === 'fullView'
-                  ? 'bg-zinc-800 text-zinc-100 border border-zinc-700 shadow'
-                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
-              }`}
-            >
-              <Layers className="w-4 h-4 text-emerald-400" />
-              <span>All Modules (Single Page)</span>
-            </button>
-          </div>
+              <button
+                onClick={() => setActivePage('vehicleRegister')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 flex items-center gap-2.5 cursor-pointer border ${
+                  activePage === 'vehicleRegister'
+                    ? 'bg-blue-600 text-white border-blue-400 shadow-lg shadow-blue-600/30 ring-1 ring-blue-400/50'
+                    : 'bg-zinc-900/80 text-zinc-300 border-zinc-800 hover:text-white hover:border-zinc-700 hover:bg-zinc-800/80'
+                }`}
+              >
+                <Truck className={`w-4 h-4 ${activePage === 'vehicleRegister' ? 'text-amber-300' : 'text-blue-400'}`} />
+                <span>3. Vehicle Register Table</span>
+              </button>
 
-          <div className="hidden sm:flex items-center gap-2 text-[11px] font-mono text-zinc-400 px-3 py-1">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Mode: <strong className="text-zinc-200 uppercase">{activePage}</strong></span>
+              <button
+                onClick={() => setActivePage('fullView')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-200 flex items-center gap-2.5 cursor-pointer border ${
+                  activePage === 'fullView'
+                    ? 'bg-zinc-800 text-white border-zinc-600 shadow-lg ring-1 ring-zinc-500'
+                    : 'bg-zinc-900/80 text-zinc-400 border-zinc-800 hover:text-zinc-200 hover:border-zinc-700'
+                }`}
+              >
+                <Layers className={`w-4 h-4 ${activePage === 'fullView' ? 'text-emerald-400' : 'text-emerald-500'}`} />
+                <span>All Modules View</span>
+              </button>
+            </div>
+
+            {/* Right Status Badge */}
+            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-zinc-300 bg-black/60 border border-zinc-800 px-3 py-1.5 rounded-xl shrink-0">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Active Page: <strong className="text-amber-400 font-bold uppercase">{activePage}</strong></span>
+            </div>
           </div>
         </div>
 

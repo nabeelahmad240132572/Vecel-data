@@ -80,8 +80,8 @@ export const Header: React.FC<HeaderProps> = ({
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-zinc-100 uppercase tracking-tight leading-[1.05] drop-shadow-xl">
               DESCON ENGINEERING <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">LIMITED</span>
             </h1>
-            <p className="text-sm sm:text-base text-zinc-300 font-sans mt-3 font-medium leading-relaxed drop-shadow">
-              صنعت کارانہ ہیوی ٹرانسپورٹ اور آلات دیکھ بھال ڈیش بورڈ — Industrial Heavy Transport & Fleet Maintenance Operations Dashboard
+            <p className="text-sm sm:text-base text-zinc-200 font-sans mt-3 font-medium tracking-wide leading-relaxed drop-shadow-md">
+              Industrial Heavy Transport & Equipment Maintenance Operations Ledger
             </p>
 
             <div className="flex flex-wrap items-center gap-3 mt-5 font-mono text-xs">
