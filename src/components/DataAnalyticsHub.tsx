@@ -19,19 +19,25 @@ import {
   HelpCircle,
   ChevronDown,
   ChevronUp,
-  Info
+  Info,
+  Edit3,
+  Trash2
 } from 'lucide-react';
 
 interface DataAnalyticsHubProps {
   records: ExpenseRecord[];
   onUpdateFilters: (updates: Partial<FilterState>) => void;
   onOpenVehicleModal: (vehicle: string) => void;
+  onEditRecord?: (record: ExpenseRecord) => void;
+  onDeleteRecord?: (id: string) => void;
 }
 
 export const DataAnalyticsHub: React.FC<DataAnalyticsHubProps> = ({
   records,
   onUpdateFilters,
   onOpenVehicleModal,
+  onEditRecord,
+  onDeleteRecord,
 }) => {
   const [activeTab, setActiveTab] = useState<'outflow' | 'anomalies' | 'dayOfWeek' | 'partsMatrix'>('outflow');
   const [showGuide, setShowGuide] = useState<boolean>(false);
@@ -376,16 +382,40 @@ export const DataAnalyticsHub: React.FC<DataAnalyticsHubProps> = ({
                   </div>
                 </div>
 
-                <div className="text-right">
+                <div className="text-right flex flex-col items-end gap-1">
                   <div className="text-sm font-bold font-mono text-amber-400">
                     PKR {r.value.toLocaleString()}
                   </div>
-                  <button
-                    onClick={() => onUpdateFilters({ vehicle: r.vehicle })}
-                    className="text-[10px] font-mono text-blue-400 hover:text-blue-300 flex items-center gap-0.5 ml-auto mt-1 cursor-pointer"
-                  >
-                    Filter Vehicle <ArrowUpRight className="w-3 h-3" />
-                  </button>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    {onEditRecord && (
+                      <button
+                        onClick={() => onEditRecord(r)}
+                        title="Edit this entry"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center gap-1 cursor-pointer transition"
+                      >
+                        <Edit3 className="w-3 h-3" /> Edit
+                      </button>
+                    )}
+                    {onDeleteRecord && (
+                      <button
+                        onClick={() => {
+                          if (window.confirm(`Delete record "${r.item}" for ${r.vehicle}?`)) {
+                            onDeleteRecord(r.id);
+                          }
+                        }}
+                        title="Delete this entry"
+                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center gap-1 cursor-pointer transition"
+                      >
+                        <Trash2 className="w-3 h-3" /> Delete
+                      </button>
+                    )}
+                    <button
+                      onClick={() => onUpdateFilters({ vehicle: r.vehicle })}
+                      className="text-[10px] font-mono text-blue-400 hover:text-blue-300 flex items-center gap-0.5 cursor-pointer ml-1"
+                    >
+                      Filter <ArrowUpRight className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

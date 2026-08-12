@@ -1,13 +1,14 @@
 import React from 'react';
 import { ExpenseRecord } from '../types';
 import { fmtPKR } from '../data/initialData';
-import { X, Truck, Calendar, Trash2, Plus, Download, Tag } from 'lucide-react';
+import { X, Truck, Calendar, Trash2, Edit3, Plus, Download, Tag } from 'lucide-react';
 
 interface VehicleDetailsModalProps {
   vehiclePlate: string | null;
   records: ExpenseRecord[];
   onClose: () => void;
   onDeleteRecord: (id: string) => void;
+  onEditRecord?: (record: ExpenseRecord) => void;
   onOpenAddModal: (vehicle: string) => void;
 }
 
@@ -16,6 +17,7 @@ export const VehicleDetailsModal: React.FC<VehicleDetailsModalProps> = ({
   records,
   onClose,
   onDeleteRecord,
+  onEditRecord,
   onOpenAddModal,
 }) => {
   if (!vehiclePlate) return null;
@@ -106,7 +108,7 @@ export const VehicleDetailsModal: React.FC<VehicleDetailsModalProps> = ({
                 <th className="py-2.5 px-3 text-right">Amount</th>
                 <th className="py-2.5 px-3 text-right">Inventory</th>
                 <th className="py-2.5 px-3 text-right">Total (PKR)</th>
-                <th className="py-2.5 px-3 text-center w-10">Action</th>
+                <th className="py-2.5 px-3 text-center w-20">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/60">
@@ -148,13 +150,28 @@ export const VehicleDetailsModal: React.FC<VehicleDetailsModalProps> = ({
                       {fmtPKR(r.value)}
                     </td>
                     <td className="py-2.5 px-3 text-center">
-                      <button
-                        onClick={() => onDeleteRecord(r.id)}
-                        title="Delete this entry"
-                        className="p-1.5 rounded-lg hover:bg-rose-500/20 text-zinc-500 hover:text-rose-400 transition cursor-pointer"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center justify-center gap-1">
+                        {onEditRecord && (
+                          <button
+                            onClick={() => onEditRecord(r)}
+                            title="Edit this entry"
+                            className="p-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 transition cursor-pointer border border-amber-500/30"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                        <button
+                          onClick={() => {
+                            if (window.confirm(`Delete entry "${r.item}" for ${r.vehicle}?`)) {
+                              onDeleteRecord(r.id);
+                            }
+                          }}
+                          title="Delete this entry"
+                          className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 transition cursor-pointer border border-rose-500/30"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

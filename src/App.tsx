@@ -18,13 +18,20 @@ import { VehicleBarChart } from './components/VehicleBarChart';
 import { TopItemsList } from './components/TopItemsList';
 import { VehicleTable } from './components/VehicleTable';
 import { AddExpenseModal } from './components/AddExpenseModal';
+import { EditExpenseModal } from './components/EditExpenseModal';
+import { LedgerEntriesModal } from './components/LedgerEntriesModal';
 import { VehicleDetailsModal } from './components/VehicleDetailsModal';
 import { VehicleCompareModal } from './components/VehicleCompareModal';
 import { DataAnalyticsHub } from './components/DataAnalyticsHub';
 import { AnomalyAndVehicleActionGraphic } from './components/AnomalyAndVehicleActionGraphic';
+import { LoginScreen } from './components/LoginScreen';
 import { LayoutDashboard, AlertTriangle, Truck, Layers, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    () => localStorage.getItem('descon_fleet_auth') === 'true'
+  );
+
   const [records, setRecords] = useState<ExpenseRecord[]>(() => getStoredRecords());
   const [activeDataset, setActiveDataset] = useState<'sheet' | 'full'>('sheet');
   const [activePage, setActivePage] = useState<'overview' | 'anomalyMatrix' | 'vehicleRegister' | 'fullView'>('overview');
@@ -49,6 +56,16 @@ export default function App() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [addModalInitialVehicle, setAddModalInitialVehicle] = useState('');
   const [inspectedVehicle, setInspectedVehicle] = useState<string | null>(null);
+
+  // Edit Record & Ledger Modal State
+  const [editingRecord, setEditingRecord] = useState<ExpenseRecord | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isLedgerModalOpen, setIsLedgerModalOpen] = useState(false);
+
+  const handleOpenEditModal = (record: ExpenseRecord) => {
+    setEditingRecord(record);
+    setIsEditModalOpen(true);
+  };
 
   // Compare Modal State
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
@@ -120,6 +137,13 @@ export default function App() {
     saveStoredRecords(updated);
   };
 
+  // Edit Record
+  const handleEditRecord = (updatedRecord: ExpenseRecord) => {
+    const updated = records.map(r => r.id === updatedRecord.id ? updatedRecord : r);
+    setRecords(updated);
+    saveStoredRecords(updated);
+  };
+
   // Delete Record
   const handleDeleteRecord = (id: string) => {
     const updated = records.filter(r => r.id !== id);
@@ -141,6 +165,12 @@ export default function App() {
     exportToCSV(filteredRecords);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('descon_fleet_auth');
+    localStorage.removeItem('descon_fleet_user');
+    setIsAuthenticated(false);
+  };
+
   const isFiltered =
     Boolean(filters.category) ||
     Boolean(filters.vehicle) ||
@@ -148,6 +178,10 @@ export default function App() {
     Boolean(filters.dateStart) ||
     Boolean(filters.dateEnd) ||
     Boolean(filters.search.trim());
+
+  if (!isAuthenticated) {
+    return <LoginScreen onLoginSuccess={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <div className="min-h-screen bg-[#09090b] text-zinc-100 font-sans antialiased selection:bg-amber-400 selection:text-zinc-900">
@@ -169,6 +203,8 @@ export default function App() {
           onExportCSV={handleExportCSV}
           onResetData={handleResetData}
           onOpenCompare={() => handleOpenCompare()}
+          onOpenLedgerModal={() => setIsLedgerModalOpen(true)}
+          onLogout={handleLogout}
         />
 
         {/* Global Cross-Filter Bar */}
@@ -303,6 +339,8 @@ export default function App() {
               records={filteredRecords}
               onUpdateFilters={handleUpdateFilters}
               onOpenVehicleModal={plate => setInspectedVehicle(plate)}
+              onEditRecord={handleOpenEditModal}
+              onDeleteRecord={handleDeleteRecord}
             />
 
             {/* First Grid Row: Daily Spend Trend & Category Breakdown */}
@@ -420,9 +458,38 @@ export default function App() {
         records={records}
         onClose={() => setInspectedVehicle(null)}
         onDeleteRecord={handleDeleteRecord}
+        onEditRecord={handleOpenEditModal}
         onOpenAddModal={plate => {
           setInspectedVehicle(null);
           setAddModalInitialVehicle(plate);
+          setIsAddModalOpen(true);
+        }}
+      />
+
+      {/* Edit Expense Modal */}
+      <EditExpenseModal
+        record={editingRecord}
+        isOpen={isEditModalOpen}
+        onClose={() => {
+          setIsEditModalOpen(false);
+          setEditingRecord(null);
+        }}
+        onUpdateRecord={handleEditRecord}
+        onDeleteRecord={handleDeleteRecord}
+        existingPlates={existingPlates}
+      />
+
+      {/* Full Ledger Entries Management Modal */}
+      <LedgerEntriesModal
+        isOpen={isLedgerModalOpen}
+        onClose={() => setIsLedgerModalOpen(false)}
+        records={records}
+        onEditRecord={record => {
+          handleOpenEditModal(record);
+        }}
+        onDeleteRecord={handleDeleteRecord}
+        onOpenAddModal={() => {
+          setAddModalInitialVehicle('');
           setIsAddModalOpen(true);
         }}
       />
